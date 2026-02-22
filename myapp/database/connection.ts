@@ -1,16 +1,6 @@
+import {User} from "../models/User";
+import {Item} from "../models/Item";
 // TODO implement actual ORM with an database instance
-// TODO create a models folder
-export interface User
-{
-    name: string;
-    email: string;
-}
-
-export interface Item
-{
-    name: string
-}
-
 export interface Db
 {
     user: User[];
@@ -18,7 +8,7 @@ export interface Db
 }
 var db: Db = {user: [{name: "Oliver", email: "oli1998t@gmail.com"}], item: []};
 
-export function getDB()
+export function getDB(): Db
 {
     return db;
 }
