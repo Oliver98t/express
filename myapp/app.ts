@@ -4,8 +4,8 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
-import indexRouter from './routes/index';
-import usersRouter from './routes/users';
+import indexRouter from './routes/Index';
+import usersRouter from './routes/Users';
 
 var app = express();
 
@@ -33,9 +33,9 @@ interface ExpressError extends Error {
     status?: number
 }
 app.use(function (
-    err: ExpressError, 
-    req: express.Request, 
-    res: express.Response, 
+    err: ExpressError,
+    req: express.Request,
+    res: express.Response,
     next: express.NextFunction) {
     // set locals, only providing error in development
     res.locals.message = err.message;
