@@ -12,3 +12,5 @@ export function getDB(): Db
 {
     return db;
 }
+
+console.log("hello");
