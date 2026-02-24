@@ -7,17 +7,14 @@ services:
       - postgres
     ports:
       - "3001:3001"
-    environment:
-      - NODE_ENV=production
     volumes:
       - .:/app
       - /app/node_modules
-
   postgres:
     image: postgres:16-alpine
     restart: unless-stopped
     environment:
-      POSTGRES_DB: mydb
+      POSTGRES_DB: expressdb
       POSTGRES_USER: oli98
       POSTGRES_PASSWORD: password
     ports:
