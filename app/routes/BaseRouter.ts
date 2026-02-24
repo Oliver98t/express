@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { Db, getDB } from '../database/connection'
+import { Db, getDB } from '../database/Connection'
 import { Crud } from '../database/Crud'
 
 export abstract class BaseRouter<T>
@@ -28,7 +28,7 @@ export abstract class BaseRouter<T>
     (   req: express.Request,
         res: express.Response,
         next: express.NextFunction
-    ) 
+    )
     {
         res.send(this.crud.getAll());
     }
@@ -37,7 +37,7 @@ export abstract class BaseRouter<T>
     (   req: express.Request,
         res: express.Response,
         next: express.NextFunction
-    ) 
+    )
     {
         const id: number = parseInt(req.params.id as string, 10);
         res.send(this.crud.get(id));
@@ -59,7 +59,7 @@ export abstract class BaseRouter<T>
         {
             res.send("fail");
         }
-    } 
+    }
 
     public update
     (   req: express.Request,
@@ -70,7 +70,7 @@ export abstract class BaseRouter<T>
         const id: number = parseInt(req.params.id as string, 10);
         let updateUser = req.body as T;
         let currentUser = this.crud.update(id, updateUser);
-        
+
         res.send(currentUser);
     }
 

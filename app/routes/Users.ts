@@ -1,4 +1,4 @@
-import { Db, getDB } from '../database/connection'
+import { Db, getDB } from '../database/Connection'
 import {BaseRouter} from "./BaseRouter"
 import {User} from "../models/User"
 

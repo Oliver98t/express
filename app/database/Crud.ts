@@ -1,5 +1,5 @@
 import express from 'express';
-import { Db, getDB } from './connection'
+import { Db, getDB } from './Connection'
 
 export class Crud<T>
 {
@@ -16,8 +16,8 @@ export class Crud<T>
     {
         return this.db[this.colName] as Array<T>;
     }
-    
-    public get(id: number): T 
+
+    public get(id: number): T
     {
         return this.db[this.colName][id] as T;
     }
@@ -34,7 +34,7 @@ export class Crud<T>
             result = false;
         }
         return result;
-    } 
+    }
 
     public update(id: number, updateUser: T): T
     {
