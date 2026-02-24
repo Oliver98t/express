@@ -1,38 +1,39 @@
 import express, { Router } from 'express';
-import { Db, getDB } from '../database/Connection'
+import { getDB, ModelKey } from '../database/Connection'
 import { Crud } from '../database/Crud'
+import { Mode } from 'node:fs';
 
 export abstract class BaseRouter<T>
 {
     private crud: Crud<T>;
-    private colName: keyof Db;
     private router = express.Router();
 
-    public constructor(colName: keyof Db)
+    public constructor(modelKey: ModelKey)
     {
-        this.crud = new Crud(colName, getDB());
-        this.colName = colName;
+        this.crud = new Crud<T>(modelKey);
         this.setBaseRoutes();
     }
 
     private setBaseRoutes()
     {
         this.router.get('/', this.getAll.bind(this));
-        this.router.get('/:id', this.get.bind(this));
-        this.router.post('/', this.create.bind(this));
+        //this.router.get('/:id', this.get.bind(this));
+        //this.router.post('/', this.create.bind(this));
         //router.put('/:id', userCrud.update);
         //router.delete('/:id', userCrud.delete);
     }
 
-    public getAll
+    public async getAll
     (   req: express.Request,
         res: express.Response,
         next: express.NextFunction
     )
     {
-        res.send(this.crud.getAll());
+        const data = await this.crud.getAll();
+        console.log(typeof(data));
+        res.status(200).json(data);
     }
-
+    /*
     public get
     (   req: express.Request,
         res: express.Response,
@@ -72,7 +73,7 @@ export abstract class BaseRouter<T>
         let currentUser = this.crud.update(id, updateUser);
 
         res.send(currentUser);
-    }
+    }*/
 
     public getRouter(): Router
     {

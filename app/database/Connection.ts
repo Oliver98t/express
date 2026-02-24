@@ -1,24 +1,14 @@
-import {User} from "../models/User";
-import {Item} from "../models/Item";
 import "dotenv/config";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../generated/prisma/client";
 const connectionString = `${process.env.DATABASE_URL}`;
 const adapter = new PrismaPg({ connectionString });
 const prisma = new PrismaClient({ adapter });
-export { prisma };
 
-// TODO implement actual ORM with an database instance
-export interface Db
+// keys for accessing different tables
+export type ModelKey = "user";
+
+export function getDB(): PrismaClient
 {
-    user: User[];
-    item: Item[];
+    return prisma;
 }
-var db: Db = {user: [{name: "Oliver", email: "oli1998t@gmail.com"}], item: []};
-
-export function getDB(): Db
-{
-    return db;
-}
-
-console.log("hello");

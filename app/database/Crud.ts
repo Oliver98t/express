@@ -1,22 +1,23 @@
 import express from 'express';
-import { Db, getDB } from './Connection'
+import { getDB, ModelKey } from './Connection';
+import { PrismaClient } from "../generated/prisma/client";
 
 export class Crud<T>
 {
-    private colName: keyof Db;
-    private db: Db;
+    private db: PrismaClient;
+    private modelKey: ModelKey; 
 
-    public constructor(colName : keyof Db, db: Db)
+    public constructor(modelKey: ModelKey, db = getDB())
     {
-        this.colName = colName;
+        this.modelKey = modelKey;
         this.db = db;
     }
 
-    public getAll(): Array<T>
+    public async getAll()
     {
-        return this.db[this.colName] as Array<T>;
+        return await this.db[this.modelKey].findMany();
     }
-
+    /*
     public get(id: number): T
     {
         return this.db[this.colName][id] as T;
