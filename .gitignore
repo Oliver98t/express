@@ -15,7 +15,7 @@ pidfiles/
 # Environment variables
 .env
 .env.*
-
+*.crt
 # TypeScript build outputs
 dist/
 build/
