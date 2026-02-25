@@ -4,6 +4,7 @@ import { tableKey } from '../database/Connection';
 import { User } from "../generated/prisma/client";
 import { UserDelegate } from "../generated/prisma/models";
 import { StatusCodes } from "http-status-codes";
+import { setFlagsFromString } from "node:v8";
 
 class UserRouter extends BaseRouter<User, UserDelegate> {
     public static tableKey: tableKey = "user";
@@ -14,18 +15,16 @@ class UserRouter extends BaseRouter<User, UserDelegate> {
     }
 
     public async getByEmail
-        (   req: express.Request,
+        (req: express.Request,
             res: express.Response,
             next: express.NextFunction
         ) {
         const email = req.params.email as string;
-        const data: User[] = await this.table.findMany({where: {email}});
-        if(data.length === 0)
-        {
+        const data: User[] = await this.table.findMany({ where: { email } });
+        if (data.length === 0) {
             res.status(StatusCodes.BAD_REQUEST).json("fail");
         }
-        else
-        {
+        else {
             res.status(StatusCodes.ACCEPTED).json(data);
         }
     }
