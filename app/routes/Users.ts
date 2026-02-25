@@ -1,13 +1,13 @@
 import {BaseRouter} from "./BaseRouter";
-import { ModelKey } from '../database/Connection';
-import {UserModel} from "../generated/prisma/models/User";
+import { tableKey } from '../database/Connection';
+import { User } from "../generated/prisma/client";
 
-class UserRouter extends BaseRouter<UserModel>
+class UserRouter extends BaseRouter<User>
 {
-    public static modelKey: ModelKey = "user";
+    public static tableKey: tableKey = "user";
     constructor()
     {
-        super(UserRouter.modelKey);
+        super(UserRouter.tableKey);
     }
 }
 

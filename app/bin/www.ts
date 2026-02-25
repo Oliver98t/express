@@ -90,5 +90,5 @@ function onListening() {
     : 'port ' + (addr?.port);
 
   const port = typeof addr === 'string' ? undefined : addr?.port;
-  console.log(`Listening on http://localhost:${port}`);
+  debugLog(`Listening on http://localhost:${port}`);
 }

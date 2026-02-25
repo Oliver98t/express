@@ -6,6 +6,7 @@ import logger from 'morgan';
 
 import indexRouter from './routes/Index';
 import usersRouter from './routes/Users';
+import { debug } from 'console';
 
 var app = express();
 
@@ -43,7 +44,10 @@ app.use(function (
 
     // render the error pagesdsd
     res.status(err.status || 500);
-    res.render('error');
+    res.json({
+    message: err.message,
+    error: req.app.get('env') === 'development' ? err : {}
+});
 });
 
 export default app;

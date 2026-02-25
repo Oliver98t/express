@@ -1,6 +1,7 @@
 import express, { Router } from 'express';
-import { getDB, ModelKey } from '../database/Connection'
-import { Crud } from '../database/Crud'
+import { StatusCodes } from 'http-status-codes';
+import { getDB, tableKey } from '../database/Connection'
+import { Crud } from '../database/CRUD'
 import { Mode } from 'node:fs';
 
 export abstract class BaseRouter<T>
@@ -8,19 +9,19 @@ export abstract class BaseRouter<T>
     private crud: Crud<T>;
     private router = express.Router();
 
-    public constructor(modelKey: ModelKey)
+    public constructor(tableKey: tableKey)
     {
-        this.crud = new Crud<T>(modelKey);
+        this.crud = new Crud<T>(tableKey);
         this.setBaseRoutes();
     }
 
     private setBaseRoutes()
     {
         this.router.get('/', this.getAll.bind(this));
-        //this.router.get('/:id', this.get.bind(this));
-        //this.router.post('/', this.create.bind(this));
-        //router.put('/:id', userCrud.update);
-        //router.delete('/:id', userCrud.delete);
+        this.router.get('/:id', this.get.bind(this));
+        this.router.post('/', this.create.bind(this));
+        this.router.put('/:id', this.update.bind(this));
+        this.router.delete('/:id', this.delete.bind(this));
     }
 
     public async getAll
@@ -29,40 +30,58 @@ export abstract class BaseRouter<T>
         next: express.NextFunction
     )
     {
+
         const data = await this.crud.getAll();
-        console.log(typeof(data));
-        res.status(200).json(data);
+        if(data != null)
+        {
+            res.status(StatusCodes.OK).json(data);
+        }
+        else
+        {
+            res.status(StatusCodes.BAD_REQUEST).json("item not found");
+        }
+
     }
-    /*
-    public get
+
+    public async get
     (   req: express.Request,
         res: express.Response,
         next: express.NextFunction
     )
     {
         const id: number = parseInt(req.params.id as string, 10);
-        res.send(this.crud.get(id));
+
+        const data = await this.crud.get(id);
+        if(data != null)
+        {
+            res.status(StatusCodes.OK).json(data);
+        }
+        else
+        {
+            res.status(StatusCodes.BAD_REQUEST).json("item not found");
+        }
+
     }
 
-    public create
+    public async create
     (   req: express.Request,
         res: express.Response,
         next: express.NextFunction
     )
     {
         const newUser: T = req.body;
-        let result = this.crud.create(newUser);
-        if(result)
+        const result = await this.crud.create(newUser);
+        if(result != null)
         {
-            res.send(newUser);
+            res.status(StatusCodes.OK).json(result);
         }
         else
         {
-            res.send("fail");
+            res.status(StatusCodes.BAD_REQUEST).json("cant create item");
         }
     }
 
-    public update
+    public async update
     (   req: express.Request,
         res: express.Response,
         next: express.NextFunction
@@ -70,10 +89,36 @@ export abstract class BaseRouter<T>
     {
         const id: number = parseInt(req.params.id as string, 10);
         let updateUser = req.body as T;
-        let currentUser = this.crud.update(id, updateUser);
+        let result = await this.crud.update(id, updateUser);
 
-        res.send(currentUser);
-    }*/
+        if(result != null)
+        {
+            res.status(StatusCodes.OK).json(result);
+        }
+        else
+        {
+            res.status(StatusCodes.BAD_REQUEST).json("cant update item");
+        }
+    }
+
+    public async delete
+    (   req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    )
+    {
+        const id: number = parseInt(req.params.id as string, 10);
+        let result = await this.crud.delete(id);
+
+        if(result != null)
+        {
+            res.status(StatusCodes.OK).json(result);
+        }
+        else
+        {
+            res.status(StatusCodes.BAD_REQUEST).json("cant delete item");
+        }
+    }
 
     public getRouter(): Router
     {
