@@ -1,12 +1,13 @@
 import express from 'express';
+import { StatusCodes } from 'http-status-codes';
 var router = express.Router();
 
-/* GET home page. */
+/* Default route. */
 router.get('/', function(
-    req: express.Request, 
-    res: express.Response, 
+    req: express.Request,
+    res: express.Response,
     next: express.NextFunction) {
-  res.render('index', { title: 'Express' });
+  res.status(StatusCodes.OK).json({"status": "up"})
 });
 
 export default router;

@@ -30,6 +30,7 @@
     // "noFallthroughCasesInSwitch": true,
     // "noPropertyAccessFromIndexSignature": true,
     "module": "ESNext",
+    "experimentalDecorators": true,
     "moduleResolution": "bundler",
     "target": "ES2023",
     "strict": true,

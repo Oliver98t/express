@@ -1,8 +1,6 @@
-import express from 'express';
 import { getDB, tableKey } from './Connection';
-import { Prisma, PrismaClient,  User} from "../generated/prisma/client";
 
-export class Crud<T>
+export class Crud<T, K>
 {
     private tableKey: tableKey;
     private table: any;
@@ -10,7 +8,7 @@ export class Crud<T>
     public constructor(tableKey: tableKey, db = getDB())
     {
         this.tableKey = tableKey;
-        this.table = db[this.tableKey] as any;
+        this.table = db[this.tableKey] as K;
     }
 
     public async getAll(): Promise<T[] | null>
@@ -75,5 +73,10 @@ export class Crud<T>
         }
 
         return result;
+    }
+
+    public getTable(): K
+    {
+        return this.table as K
     }
 }
