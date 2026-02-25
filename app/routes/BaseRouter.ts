@@ -4,18 +4,18 @@ import { tableKey } from '../database/Connection'
 import { Crud } from '../database/CRUD';
 
 type RouteInputs =
-    {
-        req: express.Request;
-        res: express.Response;
-        next: express.NextFunction;
-    }
+{
+    req: express.Request;
+    res: express.Response;
+    next: express.NextFunction;
+}
 
 export type httpMethods = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head';
 
 export abstract class BaseRouter<T, K> {
     private crud: Crud<T, K>;
     protected table: K;
-    private static router: Router = express.Router();
+    private router: Router = express.Router();
 
     public constructor(tableKey: tableKey) {
         this.crud = new Crud<T, K>(tableKey);
@@ -24,25 +24,15 @@ export abstract class BaseRouter<T, K> {
     }
 
     private setBaseRoutes() {
-        BaseRouter.router.get('/', this.getAll.bind(this));
-        BaseRouter.router.get('/:id', this.get.bind(this));
-        BaseRouter.router.post('/', this.create.bind(this));
-        BaseRouter.router.put('/:id', this.update.bind(this));
-        BaseRouter.router.delete('/:id', this.delete.bind(this));
+        this.router.get('/', this.getAll.bind(this));
+        this.router.get('/:id', this.get.bind(this));
+        this.router.post('/', this.create.bind(this));
+        this.router.put('/:id', this.update.bind(this));
+        this.router.delete('/:id', this.delete.bind(this));
     }
 
-    public static Route(message: string) {
-        return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-            const originalMethod = descriptor.value;
-            descriptor.value = function (...args: any[]) {
-                console.log(`${message} - Calling ${propertyKey} with`, args);
-                return originalMethod.apply(this, args);
-            };
-        };
-    }
-
-    public static addRoute(method: httpMethods, path: any, handler: any) {
-        BaseRouter.router[method](path, handler);
+    public addRoute(method: httpMethods, path: any, handler: any) {
+        this.router[method](path, handler);
     }
 
     public async getAll
@@ -127,6 +117,6 @@ export abstract class BaseRouter<T, K> {
     }
 
     public getRouter(): Router {
-        return BaseRouter.router;
+        return this.router;
     }
 }
