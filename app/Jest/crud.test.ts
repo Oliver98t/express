@@ -6,7 +6,6 @@ import { prismaMock } from "./singleton";
 let crudTest: Crud<User, UserDelegate>;
 
 beforeEach(() => {
-    console.log("hello")
     crudTest = new Crud<User, UserDelegate>("user", prismaMock);
 });
 

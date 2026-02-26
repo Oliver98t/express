@@ -22,8 +22,8 @@ app.use(cookieParser());
 
 // setup routers
 app.use('/', indexRouter);
-app.use("/item", itemRouter);
-app.use('/user', userRouter);
+app.use("/item", new itemRouter().getRouter());
+app.use('/user', new userRouter().getRouter());
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

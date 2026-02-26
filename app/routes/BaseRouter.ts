@@ -1,6 +1,7 @@
 import express, { Router } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { tableKey } from '../database/Connection'
+import { PrismaClient } from "../generated/prisma/client";
+import { tableKey, getDB } from '../database/Connection'
 import { Crud } from '../database/CRUD';
 
 type RouteInputs =
@@ -16,9 +17,11 @@ export abstract class BaseRouter<T, K> {
     private crud: Crud<T, K>;
     protected table: K;
     private router: Router = express.Router();
+    private db: PrismaClient;
 
-    public constructor(tableKey: tableKey) {
-        this.crud = new Crud<T, K>(tableKey);
+    public constructor(tableKey: tableKey, db: PrismaClient = getDB()) {
+        this.db = db;
+        this.crud = new Crud<T, K>(tableKey, db);
         this.table = this.crud.getTable();
         this.setBaseRoutes();
     }
