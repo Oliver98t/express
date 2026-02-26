@@ -4,8 +4,8 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 // custom routers
 import indexRouter from './routes/Index';
-import userRouter from './routes/User';
-import itemRouter from "./routes/Item";
+import userRouter from './routes/UserRouter';
+import itemRouter from "./routes/ItemRouter";
 import { debug } from 'console';
 
 var app = express();

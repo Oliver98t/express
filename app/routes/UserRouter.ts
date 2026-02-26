@@ -6,7 +6,7 @@ import { UserDelegate } from "../generated/prisma/models";
 import { StatusCodes } from "http-status-codes";
 import { setFlagsFromString } from "node:v8";
 
-class UserRouter extends BaseRouter<User, UserDelegate> {
+export class UserRouter extends BaseRouter<User, UserDelegate> {
     public static tableKey: tableKey = "user";
     constructor() {
         super(UserRouter.tableKey);
