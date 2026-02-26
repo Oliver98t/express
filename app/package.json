@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "test": "npx jest",
     "start": "tsx ./bin/www.ts",
     "dev": "DEBUG=app:* tsx watch ./bin/www.ts"
   },
@@ -25,12 +26,15 @@
     "@types/debug": "^4.1.12",
     "@types/express": "^5.0.6",
     "@types/http-errors": "^2.0.5",
+    "@types/jest": "^30.0.0",
     "@types/morgan": "^1.9.10",
     "@types/node": "^25.3.0",
     "@types/node-fetch": "^2.6.13",
     "@types/pg": "^8.16.0",
     "dotenv": "^17.3.1",
+    "jest": "^30.2.0",
     "prisma": "^7.4.1",
+    "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "tsx": "^4.21.0",

@@ -4,8 +4,8 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 // custom routers
 import indexRouter from './routes/Index';
-import usersRouter from './routes/Users';
-import itemsRouters from "./routes/Items";
+import userRouter from './routes/User';
+import itemRouter from "./routes/Item";
 import { debug } from 'console';
 
 var app = express();
@@ -22,8 +22,8 @@ app.use(cookieParser());
 
 // setup routers
 app.use('/', indexRouter);
-app.use("/items", itemsRouters);
-app.use('/users', usersRouter);
+app.use("/item", itemRouter);
+app.use('/user', userRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
