@@ -1,4 +1,4 @@
-import { BaseRouter, httpMethods } from "./BaseRouter";
+import { BaseRouter } from "./BaseRouter";
 import express from 'express';
 import { PrismaClient } from "../generated/prisma/client";
 import { tableKey, getDB } from '../database/Connection';
