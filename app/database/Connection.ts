@@ -8,7 +8,10 @@ const prisma = new PrismaClient({ adapter });
 
 // keys for accessing different tables in the the DBdo
 export type tableKey = keyof PrismaClient;
+
 export function getDB(): PrismaClient
 {
     return prisma;
 }
+
+export default  prisma ;
