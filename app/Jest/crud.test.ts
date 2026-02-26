@@ -11,6 +11,7 @@ beforeEach(() => {
 });
 
 test("getAll", async () => {
+    prismaMock.user.findMany.mockResolvedValue([{ id: 1, name: "Test User", email: "test@test.com" }] as any);
     let result  = await crudTest.getAll();
-    console.log(result);
+    expect(result).toEqual([{ id: 1, name: "Test User", email: "test@test.com" }]);
 });
