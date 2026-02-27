@@ -1,7 +1,7 @@
-import { Crud } from "../database/CRUD";
-import { User } from "../generated/prisma/client";
-import { UserDelegate } from "../generated/prisma/models";
-import { prismaMock } from "./singleton";
+import { Crud } from "../../database/CRUD";
+import { User } from "../../generated/prisma/client";
+import { UserDelegate } from "../../generated/prisma/models";
+import { prismaMock } from "../singleton";
 
 let crudTest: Crud<User, UserDelegate>;
 

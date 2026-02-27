@@ -1,5 +1,5 @@
-import UserService from "../services/UserService"
-import { prismaMock } from "./singleton";
+import UserService from "../../services/UserService"
+import { prismaMock } from "../singleton";
 
 let userService: UserService;
 // set up

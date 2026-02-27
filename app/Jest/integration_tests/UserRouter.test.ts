@@ -1,13 +1,11 @@
-import UserRouter from "../routes/UserRouter"
-import { User } from "../generated/prisma/client";
-import { UserDelegate } from "../generated/prisma/models";
-import { prismaMock } from "./singleton";
+import UserRouter from "../../routes/UserRouter"
+import prisma from "../../database/Connection";
 
 let userRouter: UserRouter;
 
 // set up
 beforeAll(() => {
-    userRouter = new UserRouter(prismaMock);
+    userRouter = new UserRouter(prisma);
 });
 
 test("Check table name", async () => {
