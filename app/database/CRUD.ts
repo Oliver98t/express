@@ -3,7 +3,7 @@ import { getDB, tableKey } from './Connection';
 export class Crud<T, K>
 {
     private tableKey: tableKey;
-    protected table: any;
+    private table: any;
 
     public constructor(tableKey: tableKey, db = getDB())
     {

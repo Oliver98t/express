@@ -6,7 +6,7 @@ import { User } from "../generated/prisma/client";
 import { UserDelegate } from "../generated/prisma/models";
 import { StatusCodes } from "http-status-codes";
 
-export class UserService extends Crud<User, UserDelegate>
+export default class UserService extends Crud<User, UserDelegate>
 {
     constructor(db = getDB())
     {
@@ -15,11 +15,7 @@ export class UserService extends Crud<User, UserDelegate>
 
     public async getByEmail(email: string)
     {
-        let result = true;
-        const data: User[] = await this.table.findMany({ where: { email } });
-        if (data.length === 0) {
-            result = false;
-        }
-        return result;
+        const data: User[] = await this.getTable().findMany({ where: { email } });
+        return data;
     }
 }
