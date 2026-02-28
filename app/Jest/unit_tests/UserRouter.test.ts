@@ -1,11 +1,11 @@
 import UserRouter from "../../routes/UserRouter"
-import prisma from "../../database/Connection";
+import { prismaMock } from "../singleton";
 
 let userRouter: UserRouter;
 
 // set up
 beforeAll(() => {
-    userRouter = new UserRouter(prisma);
+    userRouter = new UserRouter(prismaMock);
 });
 
 test("Check table name", async () => {
