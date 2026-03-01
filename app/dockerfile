@@ -20,7 +20,7 @@ COPY . .
 # Install all dependencies (including dev dependencies for TypeScript compilation)
 RUN npm install
 
-RUN export TEST_DATABASE_URL="postgresql://prisma:password@test-postgres:5432/test?schema=public"
+RUN export DATABASE_URL="postgresql://prisma:password@test-postgres:5432/test?schema=public"
 
 # TODO add commands to generate and migrate
 RUN npx prisma migrate dev --name init
