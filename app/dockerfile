@@ -21,6 +21,9 @@ COPY . .
 RUN npm install
 
 # TODO add commands to generate and migrate
+RUN npx prisma migrate dev --name init
+
+RUN npx prisma generate
 
 # Expose port
 EXPOSE 3001
