@@ -6,8 +6,6 @@ let userService: UserService;
 
 beforeAll(async () => {
     userService = new UserService(prisma);
-    console.log(process.env.TEST_DATABASE_URL);
-
 });
 
 afterAll(async () => {
