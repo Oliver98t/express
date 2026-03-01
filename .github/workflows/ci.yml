@@ -26,7 +26,7 @@ jobs:
       working-directory: app
 
     - name: Run server
-      run: docker compose -f docker-compose.test.yml exec test-express-app npm start
+      run: docker compose -f docker-compose.test.yml exec -d test-express-app npm start
       working-directory: app
 
     - name: Populate test DB
