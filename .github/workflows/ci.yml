@@ -25,6 +25,14 @@ jobs:
       run: docker compose -f docker-compose.test.yml exec test-express-app npx prisma generate
       working-directory: app
 
-    - name: run tests
+    - name: Run server
+      run: docker compose -f docker-compose.test.yml exec test-express-app npm start
+      working-directory: app
+
+    - name: Populate test DB
+      run: docker compose -f docker-compose.test.yml exec test-express-app npx tsx populateDB.ts
+      working-directory: app
+
+    - name: Run unit and integration tests
       run: docker compose -f docker-compose.test.yml exec test-express-app npm run test
       working-directory: app
