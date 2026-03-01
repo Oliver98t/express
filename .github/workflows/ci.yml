@@ -18,12 +18,13 @@ jobs:
       working-directory: app
 
     - name: DB migrations
-      run: npx prisma migrate dev --name init && npx prisma generate
+      run: docker compose -f docker-compose.test.yml exec test-express-app npx prisma migrate dev --name init
       working-directory: app    
+
+    - name: Generate prisma client
+      run: docker compose -f docker-compose.test.yml exec test-express-app npx prisma generate
+      working-directory: app
 
     - name: run tests
       run: docker compose -f docker-compose.test.yml exec test-express-app npm run test
       working-directory: app
-      
-    #- run: npm run build --if-present
-    #- run: npm test
