@@ -2,16 +2,13 @@ import "dotenv/config";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../generated/prisma/client";
 
-const connectionString = `${process.env.DATABASE_URL}`;
+const connectionString = `${process.env.TEST_DATABASE_URL}`;
+
 const adapter = new PrismaPg({ connectionString });
 const prisma = new PrismaClient({ adapter });
 
-// keys for accessing different tables in the the DBdo
 export type tableKey = keyof PrismaClient;
-
-export function getDB(): PrismaClient
-{
+export function getDB(){
     return prisma;
 }
-
-export default  prisma ;
+export { prisma };

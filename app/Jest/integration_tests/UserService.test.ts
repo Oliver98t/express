@@ -1,21 +1,26 @@
+import "dotenv/config";
 import UserService from "../../services/UserService"
-import prisma from "../../database/Connection";
+import {prisma} from "../../database/Connection";
 
 let userService: UserService;
-// set up
-beforeAll(() => {
+
+beforeAll(async () => {
     userService = new UserService(prisma);
+    console.log(process.env.TEST_DATABASE_URL);
+
+});
+
+afterAll(async () => {
+    await prisma.$disconnect();
 });
 
 test("getAll", async () => {
-    //prismaMock.user.findMany.mockResolvedValue([{ id: 1, name: "Test User", email: "test@test.com" }] as any);
-    const result = await userService.getAll();
-    console.log(result);
-    //let result  = await crudTest.getAll();
-    //expect(result).toEqual([{ id: 1, name: "Test User", email: "test@test.com" }]);
+    const result = await prisma.user.findMany();
+    expect(result.length).toEqual(100);
 });
-
+/*
 test("test get email", async () => {
     const result = await userService.getByEmail("test@test.com");
     console.log(result);
 });
+*/

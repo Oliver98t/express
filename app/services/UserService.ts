@@ -1,8 +1,6 @@
-import express from 'express';
-import { PrismaClient } from "../generated/prisma/client";
+import { User } from "../generated/prisma/client";
 import { tableKey, getDB } from '../database/Connection';
 import { Crud } from '../database/CRUD';
-import { User } from "../generated/prisma/client";
 import { UserDelegate } from "../generated/prisma/models";
 import { StatusCodes } from "http-status-codes";
 

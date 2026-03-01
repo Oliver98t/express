@@ -1,6 +1,6 @@
 import express, { Router } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { PrismaClient } from "../generated/prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { tableKey, getDB } from '../database/Connection'
 import { Crud } from '../database/CRUD';
 

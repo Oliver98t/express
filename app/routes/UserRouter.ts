@@ -1,13 +1,11 @@
 import express from 'express';
 import { StatusCodes } from "http-status-codes";
+import { Prisma, PrismaClient, User } from "@prisma/client";
 import  UserService  from "../services/UserService";
 import { BaseRouter } from "./BaseRouter";
-import { PrismaClient } from "../generated/prisma/client";
 import { tableKey, getDB } from '../database/Connection';
-import { User } from "../generated/prisma/client";
-import { UserDelegate } from "../generated/prisma/models";
 
-export default class UserRouter extends BaseRouter<User, UserDelegate> {
+export default class UserRouter extends BaseRouter<User, Prisma.UserDelegate> {
     public static tableKey: tableKey = "user";
     private services: UserService;
 

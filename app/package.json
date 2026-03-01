@@ -4,7 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "npx jest",
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
+    "test:unit": "NODE_OPTIONS=--experimental-vm-modules npx jest --selectProjects unit",
+    "test:integration": "NODE_OPTIONS=--experimental-vm-modules npx jest --selectProjects integration",
     "start": "tsx ./bin/www.ts",
     "dev": "DEBUG=app:* tsx watch ./bin/www.ts"
   },
